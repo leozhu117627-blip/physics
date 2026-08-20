@@ -1,5 +1,72 @@
 {
   "title": "高中物理教案庫",
   "subtitle": "108課綱 · PBL議題融入 · 素養導向題組",
-  "lessons": []
+  "lessons": [
+    {
+      "id": "2026-08-20-高一物理 · SI 國際單位制教案儀表板",
+      "title": "高一物理 · SI 國際單位制教案儀表板",
+      "course": "必修",
+      "chapter": "第1章 科學的態度與方法",
+      "topic": "",
+      "note": "",
+      "issues": [
+        "科技教育",
+        "資訊教育",
+        "閱讀素養"
+      ],
+      "date": "2026-08-20",
+      "assets": [
+        {
+          "type": "worksheet",
+          "name": "SI授課學習單_教師用.docx",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI授課學習單_教師用.docx"
+        },
+        {
+          "type": "worksheet",
+          "name": "SI授課學習單_學生用.docx",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI授課學習單_學生用.docx"
+        },
+        {
+          "type": "worksheet",
+          "name": "SI探究實作學習單_教師版.docx",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI探究實作學習單_教師版.docx"
+        },
+        {
+          "type": "worksheet",
+          "name": "SI探究實作學習單_學生版.docx",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI探究實作學習單_學生版.docx"
+        },
+        {
+          "type": "lesson",
+          "name": "SI單位教案_學校範本填入_1.docx",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI單位教案_學校範本填入_1.docx"
+        },
+        {
+          "type": "dashboard",
+          "name": "SI單位教案儀表板.html",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI單位教案儀表板.html"
+        },
+        {
+          "type": "worksheet",
+          "name": "SI跨科學習單_教師版.docx",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI跨科學習單_教師版.docx"
+        },
+        {
+          "type": "worksheet",
+          "name": "SI跨科學習單_學生版.docx",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI跨科學習單_學生版.docx"
+        },
+        {
+          "type": "worksheet",
+          "name": "SI閱讀學習單_教師版.docx",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI閱讀學習單_教師版.docx"
+        },
+        {
+          "type": "worksheet",
+          "name": "SI閱讀學習單_學生版.docx",
+          "path": "lessons/2026-08-20-高一物理 · SI 國際單位制教案儀表板/SI閱讀學習單_學生版.docx"
+        }
+      ]
+    }
+  ]
 }
