@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高一物理 · SI 國際單位制教案儀表板</title>
+<style>
+:root{
+  --bg:#0e1726; --panel:#152238; --panel2:#1b2c47; --ink:#e8eef8; --sub:#9fb3d1;
+  --line:#26395c; --accent:#3ea6ff; --accent2:#5ee0c0; --warn:#ffd166; --pink:#ff8fb1;
+  --purple:#b39dff; --good:#57d38c; --chip:#20335455;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  background:linear-gradient(160deg,#0b1220,#0e1726 40%,#101d33);color:var(--ink);line-height:1.75;}
+header{padding:30px 22px 18px;border-bottom:1px solid var(--line);
+  background:radial-gradient(1200px 300px at 20% -20%,#1b3358 0,transparent 60%);}
+header h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+header p{margin:2px 0;color:var(--sub);font-size:14px}
+.badges{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+.badge{background:var(--chip);border:1px solid var(--line);color:var(--accent2);
+  padding:4px 11px;border-radius:20px;font-size:12.5px}
+nav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:4px;padding:10px 14px;
+  background:#0c1524ee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav button{background:transparent;border:1px solid transparent;color:var(--sub);
+  padding:9px 14px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;transition:.15s}
+nav button:hover{color:var(--ink);background:#1a2b47}
+nav button.active{background:linear-gradient(135deg,#2b6fd8,#3ea6ff);color:#fff;box-shadow:0 4px 14px #1e5fb650}
+main{max-width:1080px;margin:0 auto;padding:26px 20px 80px}
+.tab{display:none;animation:fade .35s ease}
+.tab.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h2.sec{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+.lead{color:var(--sub);margin:0 0 18px;font-size:14.5px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:16px 0;
+  box-shadow:0 8px 26px #05091233}
+.card h3{margin:0 0 10px;font-size:17px;color:var(--accent)}
+.card h4{margin:16px 0 6px;font-size:15px;color:var(--accent2)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+.reslink{display:block;background:var(--panel2);border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--ink);transition:.15s;margin:9px 0}
+.reslink:hover{transform:translateX(3px);border-left-color:var(--accent2);background:#213656}
+.reslink .t{font-weight:700;font-size:14.5px}
+.reslink .s{color:var(--sub);font-size:12.5px;margin-top:3px}
+.reslink .v{color:var(--accent2);font-size:12px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.7px;overflow:hidden;border-radius:10px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#1d2f4d;color:var(--accent2);font-weight:700}
+tr:nth-child(even) td{background:#14213788}
+.mono{font-family:"SF Mono",Consolas,"Roboto Mono",monospace}
+.k{color:var(--warn);font-weight:700}
+.unit{color:var(--accent2);font-weight:600}
+.pill{display:inline-block;background:#22385c;border:1px solid var(--line);border-radius:6px;
+  padding:1px 7px;margin:1px;font-size:12px;color:var(--accent2)}
+details{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:6px 14px;margin:10px 0}
+summary{cursor:pointer;font-weight:700;padding:6px 0;color:var(--warn)}
+details[open]{padding-bottom:14px}
+.ans{background:#12241b;border:1px solid #245239;border-radius:8px;padding:10px 14px;margin-top:8px;color:#bff0d0}
+.q{margin:14px 0;padding:12px 14px;background:#141f33;border:1px solid var(--line);border-radius:10px}
+.q b.no{color:var(--accent);margin-right:6px}
+.opt{margin:4px 0 4px 4px}
+.src{font-size:12.5px;color:var(--sub);margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+.src a{color:var(--accent)}
+.dl{display:inline-block;margin-top:12px;background:linear-gradient(135deg,#2b6fd8,#3ea6ff);color:#fff;
+  border:none;padding:10px 18px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;text-decoration:none}
+.dl:hover{filter:brightness(1.08)}
+.note{background:#1a2740;border-left:4px solid var(--warn);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:13.7px}
+.flow{border-left:3px solid var(--accent);padding:2px 0 2px 16px;margin:10px 0}
+.flow .step{margin:12px 0}
+.flow .step b{color:var(--accent)}
+.time{color:var(--warn);font-size:12.5px;font-weight:700}
+.formula{background:#0c1728;border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:8px 0;
+  font-family:"SF Mono",Consolas,monospace;font-size:14.5px;color:#dfe9fb;overflow-x:auto}
+.tag{display:inline-block;background:#243a5e;color:var(--accent2);border-radius:6px;padding:2px 8px;font-size:11.5px;margin:2px}
+.check{color:var(--good);font-weight:700}
+ul.clean{margin:8px 0;padding-left:20px}
+ul.clean li{margin:5px 0}
+.big{font-size:30px;font-weight:800;color:var(--accent2);letter-spacing:.5px}
+.center{text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚖️ 高一物理 · SI 國際單位制（2019 新定義）教案儀表板</h1>
+  <p>對應 108 課綱 · 高一物理必修 第1章「科學的態度與方法」／自然界的尺度與單位（PEa-Ⅴc-1～3）</p>
+  <p>主題涵蓋：七大基本單位 · 導出單位推導 · 單位換算 · 因次分析 · 各種常數的單位 · 2019 SI 重新定義與實現原理</p>
+  <div class="badges">
+    <span class="badge">3–4 節課</span>
+    <span class="badge">素養導向</span>
+    <span class="badge">普台高中標準教案格式</span>
+    <span class="badge">最新 SI 定義（2019/5/20 生效）</span>
+    <span class="badge">含閱讀・跨科・探究實作題組</span>
+  </div>
+</header>
+
+<nav id="nav">
+  <button class="active" data-t="t1">📚 教學資源庫</button>
+  <button data-t="t2">🌏 PBL 教案</button>
+  <button data-t="t3">📄 正式教案</button>
+  <button data-t="t4">📝 學習單</button>
+  <button data-t="t5">🎯 閱讀題組</button>
+  <button data-t="t6">🔬 跨科題組</button>
+  <button data-t="t7">🧪 探究實作題組</button>
+</nav>
+
+<main>
+<!-- ==================== TAB 2 placeholder ==================== -->
+<!-- ==================== TAB 1 ==================== -->
+<section id="t1" class="tab active">
+  <h2 class="sec">📚 教學資源庫</h2>
+  <p class="lead">本單元核心概念地圖、真實權威資料來源，以及可直接使用的教學影片與教案連結。</p>
+
+  <div class="card">
+    <h3>🗺️ 單元概念地圖</h3>
+    <div class="grid g3">
+      <div>
+        <h4>① 為何要有單位</h4>
+        <ul class="clean">
+          <li>物理量 = 數值 × 單位</li>
+          <li>基本量 vs. 導出量</li>
+          <li>國際共通語言（SI）</li>
+        </ul>
+      </div>
+      <div>
+        <h4>② 七大基本單位</h4>
+        <ul class="clean">
+          <li>m · kg · s · A · K · mol · cd</li>
+          <li>2019 新定義：以常數定義</li>
+          <li>基本單位表示法（因次）</li>
+        </ul>
+      </div>
+      <div>
+        <h4>③ 導出與應用</h4>
+        <ul class="clean">
+          <li>導出單位的推導</li>
+          <li>單位換算與詞頭</li>
+          <li>各種常數的單位</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🔗 真實教學資源（點選開啟）</h3>
+    <a class="reslink" href="https://www.nml.org.tw/measurement/new-knowledge-3/3697-redefinition-si.html" target="_blank">
+      <div class="t">重新定義 ── 由人為物至基本物理常數</div>
+      <div class="s">來源：經濟部標準檢驗局 國家度量衡標準實驗室（NML）</div>
+      <div class="v">▶ 說明公斤為何從國際公斤原器改為以普朗克常數定義，最權威的中文一手資料</div>
+    </a>
+    <a class="reslink" href="https://www.nml.org.tw/images/2020/9_1090630.pdf" target="_blank">
+      <div class="t">國際單位制手冊（SI Brochure）第 9 版（2019）中文版 PDF</div>
+      <div class="s">來源：工研院量測技術發展中心 / BIPM 官方中譯</div>
+      <div class="v">▶ 七個定義常數、基本與導出單位、詞頭的官方定義，教師備課必備工具書</div>
+    </a>
+    <a class="reslink" href="https://www.bipm.org/en/measurement-units/si-defining-constants" target="_blank">
+      <div class="t">The SI Defining Constants（七個定義常數）</div>
+      <div class="s">來源：國際度量衡局 BIPM（官方）</div>
+      <div class="v">▶ 七個常數的精確數值與單位，數值不確定度為零的原始出處</div>
+    </a>
+    <a class="reslink" href="https://www.nist.gov/si-redefinition/definitions-si-base-units" target="_blank">
+      <div class="t">Definitions of the SI Base Units</div>
+      <div class="s">來源：美國國家標準與技術研究院 NIST（官方）</div>
+      <div class="v">▶ 七大基本單位 2019 定義的英文原文，可作為雙語教學素材</div>
+    </a>
+    <a class="reslink" href="https://sites.google.com/view/yizhe/課程/高一物理108課綱" target="_blank">
+      <div class="t">王一哲的教學網站 — 高一物理（108 課綱）</div>
+      <div class="s">來源：現職高中物理教師公開教學講義</div>
+      <div class="v">▶ 完整的高一物理講義與習題，含測量與單位章節，排版清晰可直接引用</div>
+    </a>
+    <a class="reslink" href="https://case.ntu.edu.tw/導出單位/index.html" target="_blank">
+      <div class="t">導出單位 — 科學 Online（臺灣大學 CASE）</div>
+      <div class="s">來源：國立臺灣大學 科學教育發展中心</div>
+      <div class="v">▶ 導出單位概念與範例，適合作為補充閱讀</div>
+    </a>
+  </div>
+
+  <div class="card">
+    <h3>🎬 推薦教學影片</h3>
+    <div class="grid g2">
+      <a class="reslink" href="https://www.junyiacademy.org/junyi-science/science-high/main-seni-phy/main-seni-ph-re/main-seni-ph-re-1/v/WR7NWsK9yyg" target="_blank">
+        <div class="t">【觀念】SI 制：基本單位及導出量</div>
+        <div class="s">均一教育平台 · 免費</div>
+        <div class="v">▶ 8 分鐘概念影片，適合課前預習或引起動機</div>
+      </a>
+      <a class="reslink" href="https://www.junyiacademy.org/junyi-science/science-high/main-seni-phy/senior-high-physics-book0/c10-physics/c-physics-high-unit1/v/s0Bg8d65ahg" target="_blank">
+        <div class="t">【解題】求 SI 制的導出單位</div>
+        <div class="s">均一教育平台 · 免費</div>
+        <div class="v">▶ 因次分析求導出單位的示範解題</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="src">
+    資料來源：
+    <a href="https://www.bipm.org/en/measurement-units/si-defining-constants" target="_blank">BIPM 定義常數</a> ·
+    <a href="https://www.nist.gov/si-redefinition/definitions-si-base-units" target="_blank">NIST 基本單位定義</a> ·
+    <a href="https://www.nml.org.tw/measurement/new-knowledge-3/3697-redefinition-si.html" target="_blank">台灣 NML 重新定義</a> ·
+    <a href="https://zh.wikipedia.org/wiki/2019年國際單位制基本單位重新定義" target="_blank">維基百科：2019 SI 重新定義</a>
+  </div>
+</section>
+
+<!-- ==================== TAB 2 ==================== -->
+<section id="t2" class="tab">
+  <h2 class="sec">🌏 時事 PBL 教案</h2>
+  <p class="lead">以「重新定義一公斤」為驅動問題，帶學生理解 2019 SI 改革與測量科學的意義。</p>
+
+  <div class="card">
+    <h3>🎯 驅動問題（Driving Question）</h3>
+    <div class="note big center">「如果保存在巴黎的『國際公斤原器』悄悄變輕了，全世界的一公斤都會跟著變嗎？我們能不能用一個永遠不會變的東西來定義公斤？」</div>
+    <p>2019 年 5 月 20 日（世界計量日）起，國際度量衡大會正式廢除使用了 130 年的鉑銥合金「國際公斤原器（IPK）」，改以普朗克常數 <span class="k mono">h</span> 定義公斤。這是人類史上第一次讓七個基本單位<b>全部</b>建立在不會改變的自然常數上。</p>
+  </div>
+
+  <div class="card">
+    <h3>📌 時事連結</h3>
+    <ul class="clean">
+      <li>科學家發現 IPK 與其官方複製品之間，經過百年後質量差異達約 <b>50 微克</b>（約一粒指紋的重量），動搖了「標準」本身的可靠性。</li>
+      <li>台灣的國家度量衡標準實驗室（NML）負責維持我國與國際一致的量測標準，直接關係到半導體晶圓厚度、藥品劑量、加油站公升數的公平性。</li>
+      <li>延伸議題：晶片製造的奈米級量測、電子秤與市場交易的公平、疫苗劑量的精準。</li>
+    </ul>
+    <p class="src">參考：<a href="https://www.nml.org.tw/measurement/new-knowledge-3/3697-redefinition-si.html" target="_blank">NML「重新定義」</a>、<a href="https://www.nist.gov/si-redefinition" target="_blank">NIST SI Redefinition</a></p>
+  </div>
+
+  <div class="card">
+    <h3>📖 學習目標（對應課綱學習表現）</h3>
+    <table>
+      <tr><th>編號</th><th>學習表現</th></tr>
+      <tr><td class="mono k">pe-Ⅴc-2</td><td>正確安全操作器材儀器、科技設備，能進行精確的質性觀察或數值量測。</td></tr>
+      <tr><td class="mono k">pa-Ⅴc-1</td><td>合理運用思考智能、製作圖表、使用資訊及數學等方法，有效整理資訊或數據（單位換算與因次）。</td></tr>
+      <tr><td class="mono k">an-Ⅴc-2</td><td>了解科學的認知方式講求經驗證據性、合乎邏輯性、存疑和反覆檢視（為何要拋棄人為原器）。</td></tr>
+      <tr><td class="mono k">ah-Ⅴc-2</td><td>對日常生活中所獲得的科學資訊抱持批判的態度，審慎檢視其真實性與可信度。</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>🧭 四節課教學流程</h3>
+
+    <details open>
+      <summary>第 1 節　引起動機：測量的煩惱與 SI 的誕生</summary>
+      <div class="flow">
+        <div class="step"><span class="time">10 min</span> <b>暖身：</b>發下不同品牌的直尺量同一張 A4 紙，記錄數值差異，討論「沒有共同標準會怎樣」。</div>
+        <div class="step"><span class="time">20 min</span> <b>講述：</b>物理量＝數值×單位；基本量與導出量；介紹七大基本單位由來。</div>
+        <div class="step"><span class="time">15 min</span> <b>影片＋討論：</b>播放均一「SI 制：基本單位及導出量」，學生填概念摘要。</div>
+        <div class="step"><span class="time">5 min</span> <b>提問布題：</b>「公斤原器會變重變輕嗎？」預告下節。</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>第 2 節　知識建構：七大基本單位與 2019 新定義</summary>
+      <div class="flow">
+        <div class="step"><span class="time">20 min</span> <b>講述：</b>七個定義常數（ΔνCs, c, h, e, k, Nₐ, Kcd）如何鎖定七大基本單位；重點說明「先固定常數數值 → 反推單位」的邏輯。</div>
+        <div class="step"><span class="time">15 min</span> <b>圖解：</b>公尺＝光在 1/299792458 秒走的距離；公斤＝用基布爾秤（Kibble balance）以電磁力平衡重力連結到 h。</div>
+        <div class="step"><span class="time">15 min</span> <b>小組活動：</b>七單位卡片配對（單位↔常數↔定義句），完成學習單活動一。</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>第 3 節　探究活動：導出單位、因次與單位換算</summary>
+      <div class="flow">
+        <div class="step"><span class="time">15 min</span> <b>示範：</b>由 F=ma 推導牛頓 N＝kg·m·s⁻²；由 W=Fd 推導焦耳 J。</div>
+        <div class="step"><span class="time">20 min</span> <b>實作：</b>因次分析檢驗公式對錯、單位換算闖關（km/h↔m/s、詞頭換算）。</div>
+        <div class="step"><span class="time">10 min</span> <b>延伸：</b>各種常數（G、R、k、h、ε₀）的單位如何由公式反推。</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>第 4 節　成果發表：測量科學與生活</summary>
+      <div class="flow">
+        <div class="step"><span class="time">20 min</span> <b>分組報告：</b>各組選一個生活量測情境（電子秤／加油機／血氧機），說明其背後的 SI 單位與精度需求。</div>
+        <div class="step"><span class="time">15 min</span> <b>探究實作題組：</b>完成不確定度與有效數字判讀（Tab 7）。</div>
+        <div class="step"><span class="time">10 min</span> <b>總結與評量：</b>回扣驅動問題，完成課後反思。</div>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>📊 評量方式</h3>
+    <table>
+      <tr><th>形成性評量</th><th>總結性評量</th></tr>
+      <tr>
+        <td>單位卡片配對正確率、課堂單位換算闖關、小組討論參與、學習單完成度。</td>
+        <td>閱讀／跨科／探究實作題組成績、分組報告（單位應用情境）、因次分析隨堂測驗。</td>
+      </tr>
+    </table>
+    <button class="dl" onclick="dlText('SI_PBL教案.txt', document.getElementById('t2').innerText)">⬇ 下載本 PBL 教案（.txt）</button>
+  </div>
+</section>
+
+<!-- ==================== TAB 3 ==================== -->
+<section id="t3" class="tab">
+  <h2 class="sec">📄 正式教案企劃（普台高中標準格式）</h2>
+  <p class="lead">以下為 Word 教案的網頁預覽；完整可編輯的 .docx 檔已一併產出並傳送給您。</p>
+
+  <div class="card">
+    <table>
+      <tr><th style="width:22%">主題名稱</th><td colspan="3">走進 SI 國際單位制：從一公斤的重新定義談測量科學</td></tr>
+      <tr><th>授課年段</th><td>高一（第五學習階段 Ⅴc）</td><th>節數</th><td>3–4 節（每節 50 分鐘）</td></tr>
+      <tr><th>教材來源</th><td colspan="3">108 課綱高一物理必修 第1章 科學的態度與方法／自然界的尺度與單位；補充 BIPM SI Brochure 第9版、NML 重新定義資料</td></tr>
+      <tr><th>教學設備／資源</th><td colspan="3">投影設備、直尺／量筒／電子秤、單位卡片教具、均一教育平台影片、學習單</td></tr>
+    </table>
+
+    <h4>核心素養</h4>
+    <table>
+      <tr><td class="mono k">自-U-A2</td><td>能覺察生活中測量的問題，運用單位與因次的邏輯系統性思考解決。</td></tr>
+      <tr><td class="mono k">自-U-B1</td><td>能以科學符號、單位、數學式正確表達與溝通物理量。</td></tr>
+      <tr><td class="mono k">自-U-C2</td><td>能與同儕合作進行單位換算與量測探究，並尊重不同觀點。</td></tr>
+    </table>
+
+    <h4>學習重點 — 學習表現</h4>
+    <table>
+      <tr><td class="mono k">pe-Ⅴc-2</td><td>正確安全操作器材儀器、科技設備，能進行精確的質性觀察或數值量測。</td></tr>
+      <tr><td class="mono k">pa-Ⅴc-1</td><td>合理運用思考智能、製作圖表、使用資訊及數學等方法，有效整理資訊或數據。</td></tr>
+      <tr><td class="mono k">an-Ⅴc-2</td><td>了解科學的認知方式講求經驗證據性、合乎邏輯性、存疑和反覆檢視。</td></tr>
+      <tr><td class="mono k">tr-Ⅴc-1</td><td>運用數理演算公式及科學證據，理解知識因果關係或提出不同論點。</td></tr>
+    </table>
+
+    <h4>學習重點 — 學習內容</h4>
+    <table>
+      <tr><td class="mono k">PEa-Ⅴc-1</td><td>科學上常用的物理量有國際標準單位。</td></tr>
+      <tr><td class="mono k">PEa-Ⅴc-2</td><td>許多自然科學所需的測量，包含物理量，是經由基本物理量的測量再計算而得。</td></tr>
+      <tr><td class="mono k">PEa-Ⅴc-3</td><td>原子的大小約為 10⁻¹⁰ 公尺，原子核的大小約為 10⁻¹⁵ 公尺（尺度與數量級）。</td></tr>
+    </table>
+    <p class="note">學習表現 <span class="mono">pa-Ⅴc-1</span>（整理數據）↔ 學習內容 <span class="mono">PEa-Ⅴc-2</span>（由基本量計算導出量）明確連結：單位換算與因次分析即是「由基本量計算而得」的落實。</p>
+
+    <h4>議題融入</h4>
+    <p>☑ 科技教育　☑ 資訊教育　☑ 閱讀素養</p>
+    <table>
+      <tr><th style="width:22%">實質內涵</th>
+        <td>科 U1 整合科技與工程知能，理解量測標準對科技產業（半導體、醫療）的關鍵性；<br>閱 U2 發展跨領域文本的閱讀理解策略（判讀科普與數據文本）。</td></tr>
+      <tr><th>所融入之學習重點</th>
+        <td class="mono">PEa-Ⅴc-1 科學上常用的物理量有國際標準單位；an-Ⅴc-3 體認科學能幫助人類創造更好的生活條件。</td></tr>
+    </table>
+
+    <h4>教學目標</h4>
+    <ul class="clean">
+      <li>能說出七大基本量與其 SI 基本單位符號，並理解 2019 以自然常數定義的意義。</li>
+      <li>能由物理公式推導導出單位，並用基本單位（因次）表示任一導出量。</li>
+      <li>能正確進行單位換算（含 SI 詞頭）與有效數字判讀。</li>
+      <li>能寫出常見物理常數（G、R、k、h、c、g、ε₀）的單位並解釋其來源。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📎 Word 教案下載</h3>
+    <p>完整教案（含教學活動流程表、逐節時間與評量、教學省思欄）為可編輯的 <b>.docx</b> 檔，已透過對話傳送，可直接列印或依校內格式微調。</p>
+    <span class="tag">普台高中標準格式</span><span class="tag">表格化排版</span><span class="tag">可編輯</span>
+  </div>
+</section>
+
+<!-- ==================== TAB 4 ==================== -->
+<section id="t4" class="tab">
+  <h2 class="sec">📝 學習單：SI 國際單位制</h2>
+  <p class="lead">班級 ______　座號 ______　姓名 ____________（本學習單同時是本單元核心知識整理）</p>
+
+  <div class="card">
+    <h3>✏️ 課前預習（3 題）</h3>
+    <ol class="clean">
+      <li>查一查：你家的體重計、加油站的加油機、藥袋上的劑量，各用了什麼「單位」？把它們寫下來。</li>
+      <li>「1 公尺」最早是怎麼決定的？現在又是用什麼定義的？（提示：搜尋「公尺 光速 定義」）</li>
+      <li>觀看均一影片〈SI 制：基本單位及導出量〉，寫出「基本量」與「導出量」的差別。</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>🧩 活動一：七大基本單位 × 七個定義常數（2019 新定義）</h3>
+    <p>填入正確的單位符號與對應的定義常數。這是 2019/5/20 起全球通用的定義方式：<b>先固定常數的數值（不確定度為零），再反過來定義單位</b>。</p>
+    <table>
+      <tr><th>基本量</th><th>單位名稱</th><th>符號</th><th>定義常數</th><th>常數固定數值</th></tr>
+      <tr><td>時間</td><td>秒</td><td class="unit">s</td><td>銫-133 超精細躍遷頻率 ΔνCs</td><td class="mono">9 192 631 770 Hz</td></tr>
+      <tr><td>長度</td><td>公尺</td><td class="unit">m</td><td>真空光速 c</td><td class="mono">299 792 458 m·s⁻¹</td></tr>
+      <tr><td>質量</td><td>公斤</td><td class="unit">kg</td><td>普朗克常數 h</td><td class="mono">6.626 070 15 × 10⁻³⁴ J·s</td></tr>
+      <tr><td>電流</td><td>安培</td><td class="unit">A</td><td>基本電荷 e</td><td class="mono">1.602 176 634 × 10⁻¹⁹ C</td></tr>
+      <tr><td>溫度</td><td>克耳文</td><td class="unit">K</td><td>波茲曼常數 k</td><td class="mono">1.380 649 × 10⁻²³ J·K⁻¹</td></tr>
+      <tr><td>物量</td><td>莫耳</td><td class="unit">mol</td><td>亞佛加厥常數 Nₐ</td><td class="mono">6.022 140 76 × 10²³ mol⁻¹</td></tr>
+      <tr><td>發光強度</td><td>燭光</td><td class="unit">cd</td><td>發光效率 Kcd（540 THz 單色光）</td><td class="mono">683 lm·W⁻¹</td></tr>
+    </table>
+    <div class="note">口訣記憶：<b>「公尺、公斤、秒、安培、克耳文、莫耳、燭光」</b>＝ m·kg·s·A·K·mol·cd。前三個（m, kg, s）是力學三大基本量。</div>
+  </div>
+
+  <div class="card">
+    <h3>🔧 活動二：導出單位的推導（用基本單位表示法）</h3>
+    <p>所有導出單位都能拆成七大基本單位的次方組合。請依公式推導：</p>
+    <div class="formula">速度 v = 位移 / 時間　→　[v] = m / s = <span class="unit">m·s⁻¹</span></div>
+    <div class="formula">加速度 a = Δv / t　→　[a] = (m·s⁻¹)/s = <span class="unit">m·s⁻²</span></div>
+    <div class="formula">力 F = m·a　→　牛頓 N = kg·(m·s⁻²) = <span class="unit">kg·m·s⁻²</span></div>
+    <div class="formula">功 W = F·d　→　焦耳 J = (kg·m·s⁻²)·m = <span class="unit">kg·m²·s⁻²</span></div>
+    <div class="formula">功率 P = W / t　→　瓦特 W = (kg·m²·s⁻²)/s = <span class="unit">kg·m²·s⁻³</span></div>
+    <div class="formula">壓力 p = F / A　→　帕斯卡 Pa = (kg·m·s⁻²)/m² = <span class="unit">kg·m⁻¹·s⁻²</span></div>
+    <h4>換你算算看（把導出單位寫成基本單位）</h4>
+    <table>
+      <tr><th>物理量</th><th>公式</th><th>導出單位</th><th>用基本單位表示</th></tr>
+      <tr><td>電荷</td><td>Q = I·t</td><td>庫侖 C</td><td class="mono">A·s</td></tr>
+      <tr><td>電壓</td><td>V = P/I</td><td>伏特 V</td><td class="mono">kg·m²·s⁻³·A⁻¹</td></tr>
+      <tr><td>電阻</td><td>R = V/I</td><td>歐姆 Ω</td><td class="mono">kg·m²·s⁻³·A⁻²</td></tr>
+      <tr><td>頻率</td><td>f = 1/T</td><td>赫茲 Hz</td><td class="mono">s⁻¹</td></tr>
+    </table>
+    <details><summary>參考解答</summary>
+      <div class="ans">Q=I·t → A·s；　V=P/I → (kg·m²·s⁻³)/A = kg·m²·s⁻³·A⁻¹；　R=V/I → (kg·m²·s⁻³·A⁻¹)/A = kg·m²·s⁻³·A⁻²；　f=1/T → s⁻¹。</div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>📏 活動三：SI 詞頭與單位換算</h3>
+    <p>SI 用「詞頭（prefix）」表示 10 的次方，避免寫一大串 0。2022 年 CGPM 還新增了 4 個更大／更小的詞頭。</p>
+    <table>
+      <tr><th>詞頭</th><th>符號</th><th>次方</th><th>詞頭</th><th>符號</th><th>次方</th></tr>
+      <tr><td>quetta 昆</td><td>Q</td><td>10³⁰</td><td>deci 分</td><td>d</td><td>10⁻¹</td></tr>
+      <tr><td>ronna</td><td>R</td><td>10²⁷</td><td>centi 厘</td><td>c</td><td>10⁻²</td></tr>
+      <tr><td>giga 吉</td><td>G</td><td>10⁹</td><td>milli 毫</td><td>m</td><td>10⁻³</td></tr>
+      <tr><td>mega 兆</td><td>M</td><td>10⁶</td><td>micro 微</td><td>µ</td><td>10⁻⁶</td></tr>
+      <tr><td>kilo 千</td><td>k</td><td>10³</td><td>nano 奈</td><td>n</td><td>10⁻⁹</td></tr>
+      <tr><td>hecto 百</td><td>h</td><td>10²</td><td>pico 皮</td><td>p</td><td>10⁻¹²</td></tr>
+    </table>
+    <div class="note">注意大小寫：k（千）小寫、M（百萬）大寫；質量的 SI 基本單位是「公斤 kg」而非公克，這是唯一自帶詞頭的基本單位。</div>
+    <h4>單位換算練習</h4>
+    <ol class="clean">
+      <li>72 km/h ＝ ______ m/s　<span class="pill">提示：×1000÷3600</span></li>
+      <li>5.0 nm ＝ ______ m　　　<span class="pill">奈米→公尺</span></li>
+      <li>2.5 GW ＝ ______ W</li>
+      <li>1 度電（1 kWh）＝ ______ J</li>
+    </ol>
+    <details><summary>參考解答</summary>
+      <div class="ans">
+        1. 72 × 1000/3600 = <b>20 m/s</b><br>
+        2. 5.0 × 10⁻⁹ = <b>5.0 × 10⁻⁹ m</b><br>
+        3. 2.5 × 10⁹ = <b>2.5 × 10⁹ W</b><br>
+        4. 1 kWh = 1000 W × 3600 s = <b>3.6 × 10⁶ J</b>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>🔭 活動四：各種常數的單位（由公式反推）</h3>
+    <p>常數的單位不是背的，而是由它所在的公式「湊」出來，使等號兩邊單位一致。</p>
+    <table>
+      <tr><th>常數</th><th>符號／數值</th><th>所在公式</th><th>單位（基本單位表示）</th></tr>
+      <tr><td>重力加速度</td><td class="mono">g ≈ 9.8</td><td>F = mg</td><td class="unit mono">m·s⁻²</td></tr>
+      <tr><td>萬有引力常數</td><td class="mono">G ≈ 6.674×10⁻¹¹</td><td>F = GMm/r²</td><td class="unit mono">N·m²·kg⁻² = m³·kg⁻¹·s⁻²</td></tr>
+      <tr><td>普朗克常數</td><td class="mono">h = 6.626×10⁻³⁴</td><td>E = hf</td><td class="unit mono">J·s = kg·m²·s⁻¹</td></tr>
+      <tr><td>波茲曼常數</td><td class="mono">k = 1.381×10⁻²³</td><td>E = (3/2)kT</td><td class="unit mono">J·K⁻¹ = kg·m²·s⁻²·K⁻¹</td></tr>
+      <tr><td>理想氣體常數</td><td class="mono">R = 8.314</td><td>PV = nRT</td><td class="unit mono">J·mol⁻¹·K⁻¹</td></tr>
+      <tr><td>真空光速</td><td class="mono">c = 2.998×10⁸</td><td>c = fλ</td><td class="unit mono">m·s⁻¹</td></tr>
+      <tr><td>真空電容率</td><td class="mono">ε₀ = 8.85×10⁻¹²</td><td>F = q₁q₂/4πε₀r²</td><td class="unit mono">C²·N⁻¹·m⁻² = A²·s⁴·kg⁻¹·m⁻³</td></tr>
+    </table>
+    <details><summary>示範：如何推出 G 的單位</summary>
+      <div class="ans">由 F = GMm/r² → G = F·r²/(M·m)。單位 = N·m²/(kg·kg) = N·m²·kg⁻²。再把 N 換成基本單位 kg·m·s⁻²：<br>= (kg·m·s⁻²)·m²·kg⁻² = <b>m³·kg⁻¹·s⁻²</b>。</div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>💭 課後反思（3 題，含高層次思考）</h3>
+    <ol class="clean">
+      <li>為什麼科學家要放棄「國際公斤原器」這個實體，改用普朗克常數定義公斤？這反映了科學追求什麼樣的價值？</li>
+      <li>因次分析能幫我們檢查公式對不對。試舉一個例子：如果有人寫「速度 = 加速度 × 時間²」，用因次判斷這個式子是否可能正確。</li>
+      <li>如果人類到了火星建立殖民地，你認為還需要沿用地球的 SI 單位嗎？為什麼 SI 用「自然常數」定義單位這件事，對星際通用特別重要？</li>
+    </ol>
+    <button class="dl" onclick="dlText('SI_學習單.txt', document.getElementById('t4').innerText)">⬇ 下載學習單（.txt）</button>
+  </div>
+
+  <div class="src">資料來源：
+    <a href="https://www.bipm.org/en/measurement-units/si-defining-constants" target="_blank">BIPM 定義常數</a>、
+    <a href="https://www.nist.gov/si-redefinition/definitions-si-base-units" target="_blank">NIST 基本單位定義</a>、
+    <a href="https://www.nml.org.tw/images/2020/9_1090630.pdf" target="_blank">SI Brochure 第9版中文版</a>。常數數值取 CODATA / BIPM 官方值。
+  </div>
+</section>
+
+<!-- ==================== TAB 5 ==================== -->
+<section id="t5" class="tab">
+  <h2 class="sec">🎯 學測閱讀題組：一公斤的重生</h2>
+  <p class="lead">素養導向閱讀題組，選文基於 BIPM／NIST／NML 真實資料撰寫。</p>
+
+  <div class="card">
+    <h3>📄 選文</h3>
+    <p>2019 年 5 月 20 日「世界計量日」，全球的度量衡制度悄悄完成了一場革命。從這一天起，「公斤」不再由一塊放在巴黎地下室、以鉑（90%）銥（10%）合金製成的圓柱體——「國際公斤原器（IPK）」——來定義。這塊自 1889 年就擔任全球質量標準的金屬，長年被三層玻璃罩保護，只有極少數場合才被取出。然而科學家發現一個尷尬的事實：把 IPK 和它的六個官方複製品互相比對，經過約一百年，彼此的質量竟出現了高達約 50 微克的差異。問題是——沒有人能確定究竟是原器變輕了，還是複製品變重了，因為「原器」本身就是唯一的標準。</p>
+    <p>為了擺脫這種「用會變的東西當作永恆標準」的矛盾，國際度量衡大會決定改用大自然的基本常數來定義公斤。新的定義選定普朗克常數 <span class="mono k">h</span>，將它的數值<b>精確固定</b>為 6.626 070 15 × 10⁻³⁴ J·s，且不確定度為零。由於焦耳·秒（J·s）可以拆解成 kg·m²·s⁻¹，而公尺與秒早已分別由光速與銫原子頻率精確定義，公斤便可透過一種稱為「基布爾秤（Kibble balance）」的精密儀器實現：它讓通電線圈產生的電磁力去平衡待測物的重力，如此一來，質量的量測就被連結到電學量與普朗克常數上。</p>
+    <p>這場改革讓七個 SI 基本單位——秒、公尺、公斤、安培、克耳文、莫耳、燭光——史上頭一次<b>全部</b>奠基於七個固定不變的自然常數。它的意義遠不只是學理上的優雅：從半導體晶圓的奈米級厚度、疫苗的微量劑量，到加油站每一公升的計量，都仰賴一套穩定、可在世界任何角落重現的標準。理論上，即使人類移民到火星，也能只憑這些常數，在當地重建出完全相同的一公斤。</p>
+
+    <table>
+      <tr><th>七個定義常數</th><th>符號</th><th>固定數值</th><th>定義的單位</th></tr>
+      <tr><td>銫頻率</td><td>ΔνCs</td><td class="mono">9 192 631 770 Hz</td><td>秒 s</td></tr>
+      <tr><td>光速</td><td>c</td><td class="mono">299 792 458 m·s⁻¹</td><td>公尺 m</td></tr>
+      <tr><td>普朗克常數</td><td>h</td><td class="mono">6.626 070 15×10⁻³⁴ J·s</td><td>公斤 kg</td></tr>
+      <tr><td>基本電荷</td><td>e</td><td class="mono">1.602 176 634×10⁻¹⁹ C</td><td>安培 A</td></tr>
+      <tr><td>波茲曼常數</td><td>k</td><td class="mono">1.380 649×10⁻²³ J·K⁻¹</td><td>克耳文 K</td></tr>
+      <tr><td>亞佛加厥常數</td><td>Nₐ</td><td class="mono">6.022 140 76×10²³ mol⁻¹</td><td>莫耳 mol</td></tr>
+      <tr><td>發光效率</td><td>Kcd</td><td class="mono">683 lm·W⁻¹</td><td>燭光 cd</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>❓ 試題</h3>
+    <div class="q"><b class="no">1.</b>（單選）依選文，2019 年改用普朗克常數定義公斤，主要是為了解決什麼問題？
+      <div class="opt">(A) IPK 太重不易搬運</div>
+      <div class="opt">(B) 實體原器的質量會隨時間變化，卻無從判斷標準本身是否改變</div>
+      <div class="opt">(C) 鉑銥合金太貴</div>
+      <div class="opt">(D) 普朗克常數比較好背</div>
+      <details><summary>答案與詳解</summary><div class="ans">(B)。選文指出 IPK 與複製品出現約 50 µg 差異，且「原器本身就是唯一標準」，無法判斷誰變了，故需改用不變的自然常數。</div></details>
+    </div>
+
+    <div class="q"><b class="no">2.</b>（單選）普朗克常數單位為 J·s，將其以 SI 基本單位表示，下列何者正確？
+      <div class="opt">(A) kg·m·s⁻¹　(B) kg·m²·s⁻¹　(C) kg·m²·s⁻²　(D) kg·m²·s⁻³</div>
+      <details><summary>答案與詳解</summary><div class="ans">(B)。焦耳 J = kg·m²·s⁻²，再乘上秒 s：J·s = kg·m²·s⁻²·s = <b>kg·m²·s⁻¹</b>。</div></details>
+    </div>
+
+    <div class="q"><b class="no">3.</b>（多選）根據選文，下列敘述正確的有哪些？
+      <div class="opt">(A) 2019 後七個 SI 基本單位全部以自然常數定義</div>
+      <div class="opt">(B) 公尺由光速定義，秒由銫原子頻率定義</div>
+      <div class="opt">(C) 基布爾秤以電磁力平衡重力來實現公斤</div>
+      <div class="opt">(D) 七個定義常數的數值仍帶有實驗不確定度</div>
+      <div class="opt">(E) 新定義使標準可在世界任何地方重現</div>
+      <details><summary>答案與詳解</summary><div class="ans">(A)(B)(C)(E)。(D) 錯：選文與 BIPM 明言七個定義常數的數值「精確固定、不確定度為零」。</div></details>
+    </div>
+
+    <div class="q"><b class="no">4.</b>（多選）關於七個定義常數與其對應單位，下列配對正確的有哪些？
+      <div class="opt">(A) ΔνCs → 秒　(B) c → 公尺　(C) e → 克耳文</div>
+      <div class="opt">(D) k → 安培　(E) Nₐ → 莫耳</div>
+      <details><summary>答案與詳解</summary><div class="ans">(A)(B)(E)。(C) 錯：e（基本電荷）定義安培；(D) 錯：k（波茲曼常數）定義克耳文。</div></details>
+    </div>
+
+    <div class="q"><b class="no">5.</b>（混合題）光速固定為 c = 299 792 458 m·s⁻¹。
+      <br>(1) 請說明「公尺」如何由此常數與「秒」定義。（文字說明）
+      <br>(2) 光在真空中走 1.0 奈秒（1.0×10⁻⁹ s），前進多少公尺？（計算，取 2 位有效數字）
+      <details><summary>答案與詳解</summary><div class="ans">
+        (1) 先固定 c 的數值，公尺定義為：光在真空中於 1/299 792 458 秒內所行進的距離；亦即 1 m 使得光速恰為 299 792 458 m·s⁻¹。<br>
+        (2) d = c·t = 2.998×10⁸ × 1.0×10⁻⁹ = 0.2998 ≈ <b>0.30 m</b>（約 30 公分）。
+      </div></details>
+    </div>
+  </div>
+
+  <div class="src">資料來源：
+    <a href="https://www.bipm.org/en/measurement-units/si-defining-constants" target="_blank">BIPM — SI Defining Constants</a>、
+    <a href="https://www.nist.gov/si-redefinition" target="_blank">NIST — SI Redefinition</a>、
+    <a href="https://www.nml.org.tw/measurement/new-knowledge-3/3697-redefinition-si.html" target="_blank">NML — 重新定義</a>、
+    <a href="https://zh.wikipedia.org/wiki/2019年國際單位制基本單位重新定義" target="_blank">維基百科</a>。
+  </div>
+</section>
+
+<!-- ==================== TAB 6 ==================== -->
+<section id="t6" class="tab">
+  <h2 class="sec">🔬 跨科整合題組：莫耳、亞佛加厥常數與物質計量</h2>
+  <p class="lead">以物理「單位與常數」為主軸，跨接<b>化學</b>的物質的量概念。</p>
+
+  <div class="card">
+    <h3>📄 跨科選文</h3>
+    <p>在化學實驗室裡，我們無法一顆一顆地數原子，因為原子實在太小——一個原子的大小約 10⁻¹⁰ 公尺，比細菌還小上萬倍。於是科學家用「莫耳（mole, mol）」作為計量微觀粒子數量的橋樑：1 莫耳就是「亞佛加厥常數」個基本單元。2019 年 SI 改革後，莫耳的定義也被重新書寫——不再依附於「12 克碳-12 所含的原子數」，而是直接把亞佛加厥常數 Nₐ 的數值<b>精確固定</b>為 6.022 140 76 × 10²³ mol⁻¹。換句話說，1 莫耳就是恰好 6.022 140 76 × 10²³ 個粒子，這是一個純粹的計數，與任何物質無關。</p>
+    <p>這個看似抽象的數字，其實把「看不見的原子世界」與「看得見的實驗室天平」連了起來。例如：水的莫耳質量約 18 g/mol，意思是 6.022×10²³ 個水分子集合起來，質量恰為 18 公克——大約一口水。物理上，莫耳也和波茲曼常數 k、理想氣體常數 R 密切相關，三者滿足 <span class="mono">R = k·Nₐ</span>，把單一分子的能量尺度（k）放大到一莫耳的巨觀尺度（R）。</p>
+    <table>
+      <tr><th>量</th><th>符號／數值</th><th>單位</th></tr>
+      <tr><td>亞佛加厥常數</td><td class="mono">Nₐ = 6.022 140 76×10²³</td><td class="unit">mol⁻¹</td></tr>
+      <tr><td>波茲曼常數</td><td class="mono">k = 1.380 649×10⁻²³</td><td class="unit">J·K⁻¹</td></tr>
+      <tr><td>理想氣體常數</td><td class="mono">R = 8.314</td><td class="unit">J·mol⁻¹·K⁻¹</td></tr>
+      <tr><td>水的莫耳質量</td><td class="mono">M(H₂O) ≈ 18</td><td class="unit">g·mol⁻¹</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>❓ 試題</h3>
+    <div class="q"><b class="no">1.</b>（單選）2019 後莫耳的新定義是？
+      <div class="opt">(A) 12 克碳-12 所含的原子數</div>
+      <div class="opt">(B) 恰好 6.022 140 76×10²³ 個基本單元</div>
+      <div class="opt">(C) 1 公升氣體的分子數</div>
+      <div class="opt">(D) 1 克氫所含的原子數</div>
+      <details><summary>答案與詳解</summary><div class="ans">(B)。新定義直接固定 Nₐ 數值，使莫耳成為純計數，脫離碳-12。</div></details>
+    </div>
+
+    <div class="q"><b class="no">2.</b>（單選）由 R = k·Nₐ，驗證 R 的單位。下列推導正確的是？
+      <div class="opt">(A) (J·K⁻¹)×(mol⁻¹) = J·mol⁻¹·K⁻¹　(B) J·K·mol　(C) J·mol·K⁻¹　(D) J⁻¹·mol⁻¹·K</div>
+      <details><summary>答案與詳解</summary><div class="ans">(A)。k 單位 J·K⁻¹，Nₐ 單位 mol⁻¹，相乘得 J·K⁻¹·mol⁻¹ = <b>J·mol⁻¹·K⁻¹</b>，與 R 相符。可用此驗算 R = 1.381×10⁻²³ × 6.022×10²³ ≈ 8.31 J·mol⁻¹·K⁻¹。</div></details>
+    </div>
+
+    <div class="q"><b class="no">3.</b>（多選）關於莫耳與亞佛加厥常數，正確的有？
+      <div class="opt">(A) 1 mol 任何物質含相同數目的基本單元</div>
+      <div class="opt">(B) Nₐ 的單位是 mol⁻¹</div>
+      <div class="opt">(C) 莫耳是 SI 七大基本單位之一</div>
+      <div class="opt">(D) 莫耳質量與亞佛加厥常數無關</div>
+      <div class="opt">(E) R = k·Nₐ 把微觀能量尺度連到巨觀</div>
+      <details><summary>答案與詳解</summary><div class="ans">(A)(B)(C)(E)。(D) 錯：莫耳質量正是「Nₐ 個粒子」的總質量。</div></details>
+    </div>
+
+    <div class="q"><b class="no">4.</b>（多選）下列何者的單位可正確以基本單位表示？
+      <div class="opt">(A) k：kg·m²·s⁻²·K⁻¹　(B) R：kg·m²·s⁻²·mol⁻¹·K⁻¹</div>
+      <div class="opt">(C) Nₐ：mol　(D) 能量 kT：kg·m²·s⁻²　(E) 濃度 mol/L：mol·m⁻³</div>
+      <details><summary>答案與詳解</summary><div class="ans">(A)(B)(D)。(C) 錯：Nₐ 為 mol⁻¹。(E) 錯：mol/L = mol/dm³ ≠ mol·m⁻³（差 1000 倍，1 mol/L = 1000 mol·m⁻³）。</div></details>
+    </div>
+
+    <div class="q"><b class="no">5.</b>（混合題）一杯水約 18 公克。
+      <br>(1) 這杯水約含幾莫耳的水分子？
+      <br>(2) 換算成水分子個數約為多少？（取 2 位有效數字）
+      <br>(3) 說明「莫耳」為何被稱為連接微觀與巨觀的橋樑。
+      <details><summary>答案與詳解</summary><div class="ans">
+        (1) n = 18 g ÷ 18 g·mol⁻¹ = <b>1.0 mol</b>。<br>
+        (2) N = n·Nₐ = 1.0 × 6.022×10²³ ≈ <b>6.0×10²³ 個</b>。<br>
+        (3) 因為我們無法逐一數原子（微觀、10⁻¹⁰ m 尺度），莫耳讓「可秤重的公克數（巨觀）」與「粒子個數（微觀）」透過 Nₐ 互相換算。
+      </div></details>
+    </div>
+  </div>
+
+  <div class="src">資料來源：
+    <a href="https://www.bipm.org/en/measurement-units/si-defining-constants" target="_blank">BIPM 定義常數</a>、
+    <a href="https://www.nist.gov/si-redefinition/definitions-si-base-units" target="_blank">NIST 基本單位定義</a>、
+    <a href="https://physics.nist.gov/cgi-bin/cuu/Value?r" target="_blank">CODATA 常數值（NIST）</a>。
+  </div>
+</section>
+
+<!-- ==================== TAB 7 ==================== -->
+<section id="t7" class="tab">
+  <h2 class="sec">🧪 探究實作題組：測量、有效數字與不確定度</h2>
+  <p class="lead">符合 108 課綱「探究與實作」精神，強調量測方法、資料分析與誤差判讀。</p>
+
+  <div class="card">
+    <h3>📄 探究情境</h3>
+    <p>某高一探究小組想測量一枚硬幣的密度。他們用兩種不同精度的量具測量同一枚硬幣的質量與直徑，各測 5 次，資料如下。密度公式為 ρ = m / V，硬幣可視為圓柱，體積 V = π(d/2)²·t，其中 t 為厚度（另測得 t = 1.85 mm）。任何測量都有不確定度，SI 規範也訂有國際公認的計算方法（對應學習內容 PEa-Ⅴa-1）。</p>
+    <table>
+      <tr><th>次數</th><th>電子秤 A（±0.01 g）質量 m/g</th><th>游標卡尺 直徑 d/mm（±0.02 mm）</th></tr>
+      <tr><td>1</td><td>7.49</td><td>26.48</td></tr>
+      <tr><td>2</td><td>7.51</td><td>26.52</td></tr>
+      <tr><td>3</td><td>7.50</td><td>26.50</td></tr>
+      <tr><td>4</td><td>7.52</td><td>26.49</td></tr>
+      <tr><td>5</td><td>7.48</td><td>26.51</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>❓ 第一大題：科學探究能力（單選）</h3>
+    <div class="q"><b class="no">1.</b>測 5 次取平均，主要目的是？
+      <div class="opt">(A) 消除系統誤差　(B) 減少隨機誤差對結果的影響</div>
+      <div class="opt">(C) 增加有效數字位數　(D) 讓數值變大</div>
+      <details><summary>答案</summary><div class="ans">(B)。多次測量取平均可降低隨機誤差；系統誤差無法用取平均消除，需校正儀器。</div></details>
+    </div>
+    <div class="q"><b class="no">2.</b>質量平均值最恰當的表示為？
+      <div class="opt">(A) 7.5 g　(B) 7.500 g　(C) 7.50 g　(D) 7.5000 g</div>
+      <details><summary>答案</summary><div class="ans">(C)。5 次平均 =（7.49+7.51+7.50+7.52+7.48)/5 = 7.50 g；電子秤讀到 0.01 g，故保留至百分位 <b>7.50 g</b>。</div></details>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>❓ 第二大題：資料分析與詮釋（多選）</h3>
+    <div class="q"><b class="no">3.</b>關於本實驗的量測，正確的敘述有？
+      <div class="opt">(A) 電子秤 A 的最小刻度為 0.01 g</div>
+      <div class="opt">(B) 直徑 5 次平均約為 26.50 mm</div>
+      <div class="opt">(C) 有效數字越多代表越準確，可任意增加</div>
+      <div class="opt">(D) 計算體積時，單位應統一換算成公尺以得 SI 標準結果</div>
+      <div class="opt">(E) 不確定度反映量測的精密程度</div>
+      <details><summary>答案</summary><div class="ans">(A)(B)(D)(E)。(C) 錯：有效數字受限於儀器精度，不能無中生有。直徑平均 =（26.48+26.52+26.50+26.49+26.51)/5 = 26.50 mm。</div></details>
+    </div>
+    <div class="q"><b class="no">4.</b>換算單位以求 SI 制密度（kg·m⁻³），下列換算正確的有？
+      <div class="opt">(A) 7.50 g = 7.50×10⁻³ kg　(B) 26.50 mm = 2.650×10⁻² m</div>
+      <div class="opt">(C) 1.85 mm = 1.85×10⁻³ m　(D) 密度 SI 單位為 g·cm⁻³　(E) 1 g·cm⁻³ = 1000 kg·m⁻³</div>
+      <details><summary>答案</summary><div class="ans">(A)(B)(C)(E)。(D) 錯：密度的 SI 單位是 kg·m⁻³，g·cm⁻³ 是常用非 SI 單位。</div></details>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>❓ 第三大題：混合非選（計算＋推論＋改進）</h3>
+    <div class="q"><b class="no">5.</b>依平均值 m = 7.50 g、d = 26.50 mm、t = 1.85 mm：
+      <br>(1) 求硬幣體積 V（cm³，2 位有效數字）。
+      <br>(2) 求密度 ρ（g·cm⁻³ 與 kg·m⁻³）。
+      <br>(3) 若改用最小刻度 1 g 的廚房秤，對結果有何影響？提出一項改進量測的建議。
+      <details><summary>答案與詳解</summary><div class="ans">
+        (1) r = d/2 = 1.325 cm，t = 0.185 cm。V = π·r²·t = π×(1.325)²×0.185 ≈ π×1.7556×0.185 ≈ <b>1.02 cm³ ≈ 1.0 cm³</b>。<br>
+        (2) ρ = m/V = 7.50 / 1.02 ≈ <b>7.4 g·cm⁻³</b> = 7.4×1000 = <b>7.4×10³ kg·m⁻³</b>（與銅鎳合金硬幣量級相符）。<br>
+        (3) 廚房秤最小刻度 1 g，質量只能讀到 7 或 8 g，相對誤差大幅上升（可達十幾 %），密度結果會很不精確。改進：使用更高精度電子天平、增加測量次數、或量測多枚硬幣總質量再除以枚數以降低相對不確定度。
+      </div></details>
+    </div>
+  </div>
+
+  <div class="src">資料來源：量測方法與不確定度概念參考
+    <a href="https://www.nml.org.tw/images/2020/9_1090630.pdf" target="_blank">SI Brochure 第9版中文版（工研院量測中心）</a>、
+    <a href="https://physics.nist.gov/cuu/Uncertainty/index.html" target="_blank">NIST — Uncertainty of Measurement Results</a>。
+  </div>
+</section>
+
+</main>
+
+<footer style="text-align:center;color:#6d84a8;font-size:12.5px;padding:24px;border-top:1px solid var(--line)">
+  高一物理 · SI 國際單位制教案儀表板　|　依 108 課綱編製，常數數值採 BIPM／NIST 官方值（2019 SI 定義）<br>
+  本頁為教學用途，題組數據與情境經教學化改寫，引用來源見各分頁。
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+nav.addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.t).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+function dlText(name,txt){
+  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=name; a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
