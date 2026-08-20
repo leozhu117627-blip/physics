@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新增教案 · 高中物理教案庫</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛️</text></svg>">
+<style>
+  :root{
+    --bg:#f5f6f9; --card:#fff; --text:#12161c; --muted:#6b7480; --faint:#98a1ad;
+    --line:#e4e7ec; --line2:#eef0f4;
+    --brand:#4f46e5; --brand-soft:#eef0fe; --ok:#0d9488; --err:#dc2626; --warn:#d97706;
+    --shadow:0 1px 2px rgba(16,24,40,.05),0 10px 28px rgba(16,24,40,.05); --r:14px;
+  }
+  html[data-theme="dark"]{
+    --bg:#0d1017; --card:#161b23; --text:#e8ebf0; --muted:#98a2b3; --faint:#6b7480;
+    --line:#242b35; --line2:#1d232c; --brand:#818cf8; --brand-soft:#1e2438;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);line-height:1.6;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px 90px}
+  header.top{background:linear-gradient(180deg,var(--brand-soft),transparent);border-bottom:1px solid var(--line)}
+  .top-in{max-width:820px;margin:0 auto;padding:26px 20px 22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  h1{margin:0;font-size:1.35rem;letter-spacing:-.02em}
+  .sub{margin:3px 0 0;color:var(--muted);font-size:.85rem}
+  .spacer{flex:1}
+  a.back{color:var(--brand);text-decoration:none;font-size:.88rem;font-weight:600;white-space:nowrap}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+        padding:20px;box-shadow:var(--shadow);margin-top:18px}
+  .card h2{font-size:.98rem;margin:0 0 3px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+  .card h2 .num{background:var(--brand);color:#fff;width:21px;height:21px;border-radius:6px;
+    display:grid;place-items:center;font-size:.75rem;flex:0 0 auto}
+  .card .desc{color:var(--muted);font-size:.82rem;margin:0 0 16px;padding-left:29px}
+
+  label.f{display:block;margin-bottom:13px}
+  label.f>span{display:block;font-size:.8rem;color:var(--muted);margin-bottom:5px;font-weight:600}
+  label.f>span .req{color:var(--err)}
+  input[type=text],input[type=password],input[type=date],select,textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+    background:var(--bg);color:var(--text);font:inherit;font-size:.9rem;outline:none}
+  input:focus,select:focus,textarea:focus{border-color:var(--brand);background:var(--card)}
+  textarea{resize:vertical;min-height:64px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--brand);color:#fff;
+    border:none;padding:11px 18px;border-radius:10px;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:.15s}
+  .btn:hover:not(:disabled){filter:brightness(1.08)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn.sm{padding:7px 12px;font-size:.82rem}
+  .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  .btn.ghost:hover:not(:disabled){color:var(--text)}
+  .btn.danger{background:transparent;color:var(--err);border:1px solid var(--line)}
+  .btn.big{width:100%;padding:15px;font-size:1rem}
+
+  .ichip{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:5px 12px;
+    font-size:.8rem;color:var(--muted);cursor:pointer;user-select:none;margin:0 6px 6px 0;transition:.13s}
+  .ichip:hover{border-color:var(--brand)}
+  .ichip.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+
+  .drop{border:2px dashed var(--line);border-radius:12px;padding:30px 20px;text-align:center;
+    color:var(--muted);cursor:pointer;transition:.15s;background:var(--bg)}
+  .drop:hover,.drop.over{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}
+  .drop b{color:var(--text);display:block;font-size:.95rem;margin-bottom:3px}
+  .drop.over b{color:var(--brand)}
+  .flist{margin-top:12px;display:flex;flex-direction:column;gap:7px}
+  .fitem{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:var(--bg)}
+  .fitem .nm{flex:1;min-width:0;font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .fitem .sz{font-size:.75rem;color:var(--faint);white-space:nowrap}
+  .fitem select{width:auto;padding:5px 8px;font-size:.78rem;border-radius:7px}
+  .fitem .x{background:none;border:none;color:var(--faint);cursor:pointer;font-size:1.05rem;padding:0 3px;line-height:1}
+  .fitem .x:hover{color:var(--err)}
+
+  .status{margin-top:14px;font-size:.85rem;border-radius:10px;padding:12px 14px;display:none}
+  .status.show{display:block}
+  .status.ok{background:rgba(13,148,136,.1);color:var(--ok)}
+  .status.err{background:rgba(220,38,38,.09);color:var(--err)}
+  .status.info{background:var(--brand-soft);color:var(--brand)}
+  .log{margin-top:10px;font-size:.78rem;color:var(--muted);max-height:190px;overflow:auto;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.75}
+  .log div.d{color:var(--ok)}
+  .log div.e{color:var(--err)}
+  .hint{font-size:.78rem;color:var(--faint);line-height:1.75}
+  .hint a{color:var(--brand)}
+  details.help{margin-top:10px;font-size:.82rem;color:var(--muted)}
+  details.help summary{cursor:pointer;color:var(--brand);font-weight:600;font-size:.83rem}
+  details.help ol{padding-left:1.3em;margin:9px 0 0}
+  details.help li{margin-bottom:5px}
+  code{background:var(--brand-soft);color:var(--brand);padding:1px 6px;border-radius:5px;font-size:.86em}
+
+  .mrow{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line2);padding:9px 0}
+  .mrow:last-child{border-bottom:none}
+  .mrow .t{flex:1;min-width:0;font-size:.86rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mrow .d{font-size:.76rem;color:var(--faint);white-space:nowrap}
+  .row-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div>
+      <h1>＋ 新增教案</h1>
+      <p class="sub">把 Claude 產出的檔案丟進來，按一次就上傳並更新儀表板</p>
+    </div>
+    <div class="spacer"></div>
+    <a class="back" href="./">← 回儀表板</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 1. 連線設定 -->
+  <div class="card">
+    <h2><span class="num">1</span>連線設定</h2>
+    <p class="desc">只需設定一次，之後這台電腦會記住。</p>
+    <div class="two">
+      <label class="f"><span>GitHub 倉庫</span>
+        <input type="text" id="repo" placeholder="帳號/倉庫名"></label>
+      <label class="f"><span>存取金鑰 Token <span class="req">*</span></span>
+        <input type="password" id="token" placeholder="github_pat_… 或 ghp_…" autocomplete="off"></label>
+    </div>
+    <div class="row-actions">
+      <button class="btn sm ghost" id="testBtn">測試連線</button>
+      <label style="font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:6px;cursor:pointer">
+        <input type="checkbox" id="remember" checked style="width:auto"> 記住金鑰（只存在這台電腦的瀏覽器）
+      </label>
+    </div>
+    <div class="status" id="connStatus"></div>
+    <details class="help">
+      <summary>第一次使用？點這裡看怎麼拿到 Token（約 3 分鐘）</summary>
+      <ol>
+        <li>登入 GitHub，打開 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained personal access token 建立頁</a></li>
+        <li><b>Token name</b> 隨便填，例如 <code>物理教案上傳</code></li>
+        <li><b>Expiration</b> 建議選 <code>No expiration</code> 或 1 年</li>
+        <li><b>Repository access</b> 選 <code>Only select repositories</code> → 勾選你的教案倉庫</li>
+        <li><b>Permissions → Repository permissions</b> 找到 <code>Contents</code>，改成 <code>Read and write</code></li>
+        <li>按 <b>Generate token</b>，把出現的那串字複製貼到上面欄位（<b>只會顯示一次</b>）</li>
+      </ol>
+      <p style="margin-top:9px">金鑰只存在你自己的瀏覽器，不會上傳到網站上；別人打開這個頁面看不到，也不能上傳。</p>
+    </details>
+  </div>
+
+  <!-- 2. 教案資訊 -->
+  <div class="card">
+    <h2><span class="num">2</span>教案資訊</h2>
+    <p class="desc">丟檔案後，標題／章節／議題會自動猜一份草稿，你再確認即可。</p>
+    <label class="f"><span>教案標題 <span class="req">*</span></span>
+      <input type="text" id="title" placeholder="例：電磁感應與再生能源"></label>
+    <div class="two">
+      <label class="f"><span>課程 <span class="req">*</span></span><select id="course"></select></label>
+      <label class="f"><span>章節 <span class="req">*</span></span><select id="chapter"></select></label>
+    </div>
+    <div class="two">
+      <label class="f"><span>驅動問題 / 主題摘要</span>
+        <input type="text" id="topic" placeholder="例：離岸風電如何把風轉成電？"></label>
+      <label class="f"><span>日期</span><input type="date" id="date"></label>
+    </div>
+    <label class="f"><span>議題融入（可複選）</span></label>
+    <div id="issueChips" style="margin:-8px 0 14px"></div>
+    <label class="f"><span>備註（選填）</span>
+      <textarea id="note" placeholder="例：高二上第 5 週共備使用，搭配台電發電數據"></textarea></label>
+  </div>
+
+  <!-- 3. 檔案 -->
+  <div class="card">
+    <h2><span class="num">3</span>教案檔案</h2>
+    <p class="desc">儀表板 HTML、教案 Word、學習單、三個題組，可以一次全部拖進來。</p>
+    <div class="drop" id="drop">
+      <b>把檔案拖到這裡</b>或點擊選擇檔案
+    </div>
+    <input type="file" id="fileInput" multiple class="hide" style="display:none">
+    <div class="flist" id="flist"></div>
+  </div>
+
+  <!-- 4. 送出 -->
+  <div class="card">
+    <button class="btn big" id="submitBtn">🚀 上傳並更新儀表板</button>
+    <div class="status" id="upStatus"></div>
+    <div class="log" id="log"></div>
+  </div>
+
+  <!-- 5. 已上傳 -->
+  <div class="card">
+    <h2><span class="num">4</span>已上傳的教案</h2>
+    <p class="desc">可以在這裡移除整份教案（連同檔案一起刪除）。</p>
+    <div id="manageBox" class="hint">尚未載入。</div>
+  </div>
+
+  <p class="hint" style="margin-top:22px">
+    上傳成功後，GitHub Pages 大約需要 30～60 秒重新發布，回儀表板若沒看到，稍等一下再重新整理。
+  </p>
+</div>
+
+<script src="assets/curriculum.js"></script>
+<script>
+/* ---------- 基本工具 ---------- */
+const $ = id => document.getElementById(id);
+const store = { get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},
+                set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},
+                del:k=>{try{localStorage.removeItem(k)}catch(e){}} };
+document.documentElement.dataset.theme = store.get("theme") ||
+  (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+const esc = s => String(s ?? "").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sizeOf = b => b<1024 ? b+" B" : b<1048576 ? (b/1024).toFixed(0)+" KB" : (b/1048576).toFixed(1)+" MB";
+const safeName = s => String(s)
+  .replace(/[\u0000-\u001f]/g, "")
+  .replace(/[\/\\?%*:|"<>#]/g, "-")
+  .replace(/\s+/g, " ").trim().slice(0, 80) || "未命名";
+const encPath = p => p.split("/").map(encodeURIComponent).join("/");
+const b64encode = str => { const by = new TextEncoder().encode(str); let s=""; by.forEach(b=>s+=String.fromCharCode(b)); return btoa(s) };
+const b64decode = b64 => new TextDecoder().decode(Uint8Array.from(atob(String(b64).replace(/\s/g,"")), c=>c.charCodeAt(0)));
+
+function setStatus(el, kind, html){ el.className = "status show " + kind; el.innerHTML = html }
+function log(msg, cls=""){ const d=document.createElement("div"); d.className=cls; d.textContent=msg;
+  $("log").appendChild(d); $("log").scrollTop = $("log").scrollHeight }
+
+/* ---------- 倉庫偵測 ---------- */
+function detectRepo(){
+  const saved = store.get("repo");
+  if(saved) return saved;
+  const h = location.hostname;
+  if(h.endsWith(".github.io")){
+    const owner = h.split(".")[0];
+    const seg = location.pathname.split("/").filter(Boolean);
+    const r = seg.length && !/\.html?$/i.test(seg[0]) ? seg[0] : `${owner}.github.io`;
+    return `${owner}/${r}`;
+  }
+  return "";
+}
+$("repo").value = detectRepo();
+$("token").value = store.get("token") || "";
+$("remember").checked = store.get("remember") !== "0";
+$("date").value = new Date().toISOString().slice(0,10);
+
+let BRANCH = "main";
+const repoParts = () => {
+  const [o,r] = ($("repo").value || "").trim().replace(/^https?:\/\/github\.com\//,"").replace(/\/$/,"").split("/");
+  return {owner:o, repo:r};
+};
+
+/* ---------- GitHub API ---------- */
+async function gh(path, opts={}){
+  const {owner,repo} = repoParts();
+  const r = await fetch(`https://api.github.com/repos/${owner}/${repo}${path}`, {
+    ...opts,
+    headers:{ "Accept":"application/vnd.github+json",
+              "Authorization":"Bearer " + $("token").value.trim(),
+              ...(opts.body ? {"Content-Type":"application/json"} : {}),
+              ...(opts.headers||{}) }
+  });
+  if(r.status === 404 && opts.allow404) return null;
+  if(!r.ok){
+    let m = r.status + "";
+    try{ m = (await r.json()).message || m }catch(e){}
+    throw new Error(m);
+  }
+  return r.status === 204 ? null : r.json();
+}
+const putFile = (path, b64, message, sha) =>
+  gh(`/contents/${encPath(path)}`, {method:"PUT",
+    body: JSON.stringify({message, content:b64, branch:BRANCH, ...(sha?{sha}:{})})});
+
+/* ---------- 課程 / 章節 / 議題 ---------- */
+CURRICULUM.forEach((c,i) => $("course").add(new Option(c.course, c.short)));
+function fillChapters(){
+  const c = CURRICULUM.find(x => x.short === $("course").value) || CURRICULUM[0];
+  $("chapter").innerHTML = "";
+  c.chapters.forEach(ch => $("chapter").add(new Option(ch, ch)));
+}
+$("course").onchange = fillChapters; fillChapters();
+
+const picked = new Set();
+$("issueChips").innerHTML = ISSUES.map(i => `<span class="ichip" data-i="${esc(i)}">${esc(i)}</span>`).join("");
+$("issueChips").querySelectorAll(".ichip").forEach(el => el.onclick = () => {
+  const v = el.dataset.i;
+  picked.has(v) ? picked.delete(v) : picked.add(v);
+  el.classList.toggle("on", picked.has(v));
+});
+
+/* ---------- 檔案處理 ---------- */
+let FILES = [];  /* {file, type} */
+const drop = $("drop"), fi = $("fileInput");
+drop.onclick = () => fi.click();
+fi.onchange = () => { addFiles([...fi.files]); fi.value = "" };
+["dragenter","dragover"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.add("over") }));
+["dragleave","drop"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.remove("over") }));
+drop.addEventListener("drop", ev => addFiles([...(ev.dataTransfer?.files||[])]));
+document.addEventListener("dragover", e => e.preventDefault());
+document.addEventListener("drop", e => e.preventDefault());
+
+function addFiles(list){
+  list.forEach(f => { if(!FILES.some(x => x.file.name===f.name && x.file.size===f.size))
+    FILES.push({file:f, type:guessAssetType(f.name)}) });
+  renderFiles();
+  list.forEach(sniff);
+}
+function renderFiles(){
+  $("flist").innerHTML = FILES.map((f,i) => `
+    <div class="fitem">
+      <span class="nm">${esc(f.file.name)}</span>
+      <span class="sz">${sizeOf(f.file.size)}</span>
+      <select data-i="${i}">${ASSET_TYPES.map(t =>
+        `<option value="${t.key}"${t.key===f.type?" selected":""}>${esc(t.label)}</option>`).join("")}</select>
+      <button class="x" data-x="${i}" title="移除">✕</button>
+    </div>`).join("");
+  $("flist").querySelectorAll("select").forEach(s => s.onchange = () => FILES[+s.dataset.i].type = s.value);
+  $("flist").querySelectorAll("[data-x]").forEach(b => b.onclick = () => { FILES.splice(+b.dataset.x,1); renderFiles() });
+}
+
+/* 讀文字檔內容，自動猜標題／章節／議題 */
+function sniff(file){
+  const ext = (file.name.split(".").pop()||"").toLowerCase();
+  if(!["html","htm","txt","md"].includes(ext) || file.size > 3e6) return;
+  const fr = new FileReader();
+  fr.onload = () => {
+    const text = String(fr.result);
+    if(!$("title").value.trim()){
+      const m = text.match(/<title[^>]*>([^<]{1,120})<\/title>/i);
+      if(m) $("title").value = m[1].trim().replace(/\s*[｜|\-–]\s*(高中)?物理.*$/,"").trim();
+    }
+    ISSUES.forEach(i => { if(text.includes(i) && !picked.has(i)){
+      picked.add(i);
+      const el = $("issueChips").querySelector(`[data-i="${CSS.escape(i)}"]`);
+      if(el) el.classList.add("on");
+    }});
+    for(const c of CURRICULUM) for(const ch of c.chapters){
+      const core = ch.replace(/^第\d+章\s*/,"");
+      if(core.length >= 3 && text.includes(core)){
+        $("course").value = c.short; fillChapters(); $("chapter").value = ch; return;
+      }
+    }
+  };
+  fr.readAsText(file);
+}
+const readB64 = file => new Promise((res,rej) => {
+  const fr = new FileReader();
+  fr.onload = () => res(String(fr.result).split(",")[1]);
+  fr.onerror = rej; fr.readAsDataURL(file);
+});
+
+/* ---------- 測試連線 ---------- */
+$("testBtn").onclick = async () => {
+  const {owner,repo} = repoParts();
+  if(!owner || !repo) return setStatus($("connStatus"),"err","請填 <code>帳號/倉庫名</code>，例如 <code>leozhu/physics</code>");
+  if(!$("token").value.trim()) return setStatus($("connStatus"),"err","請先貼上 Token（見下方說明）");
+  setStatus($("connStatus"),"info","檢查中…");
+  try{
+    const info = await gh("");
+    BRANCH = info.default_branch || "main";
+    if(!info.permissions || !info.permissions.push)
+      return setStatus($("connStatus"),"err","連得上倉庫，但這組 Token 沒有寫入權限。請確認 Permissions → Contents 設為 <b>Read and write</b>。");
+    setStatus($("connStatus"),"ok",`✓ 連線成功：<b>${esc(info.full_name)}</b>（分支 ${esc(BRANCH)}）`);
+    saveCreds(); loadManage();
+  }catch(e){
+    setStatus($("connStatus"),"err","連線失敗：" + esc(e.message) +
+      "<br><span style='font-size:.8rem'>常見原因：倉庫名稱打錯、Token 沒勾到這個倉庫、Token 過期。</span>");
+  }
+};
+function saveCreds(){
+  store.set("repo", $("repo").value.trim());
+  store.set("remember", $("remember").checked ? "1" : "0");
+  $("remember").checked ? store.set("token", $("token").value.trim()) : store.del("token");
+}
+
+/* ---------- 上傳 ---------- */
+$("submitBtn").onclick = async () => {
+  const btn = $("submitBtn"), st = $("upStatus");
+  $("log").innerHTML = "";
+  const {owner,repo} = repoParts();
+  const title = $("title").value.trim();
+
+  if(!owner || !repo || !$("token").value.trim()) return setStatus(st,"err","請先完成步驟 1 的連線設定。");
+  if(!title) return setStatus(st,"err","請填教案標題。");
+  if(!FILES.length) return setStatus(st,"err","請至少放入一個檔案。");
+
+  btn.disabled = true;
+  setStatus(st,"info","上傳中，請不要關閉這個頁面…");
+  try{
+    const info = await gh(""); BRANCH = info.default_branch || "main";
+    saveCreds();
+
+    const date = $("date").value || new Date().toISOString().slice(0,10);
+    const id   = `${date}-${safeName(title)}`;
+    const dir  = `lessons/${id}`;
+    const assets = [];
+
+    for(let i=0;i<FILES.length;i++){
+      const {file,type} = FILES[i];
+      const name = safeName(file.name);
+      const path = `${dir}/${name}`;
+      log(`(${i+1}/${FILES.length}) 上傳 ${name} …`);
+      let sha;
+      const exist = await gh(`/contents/${encPath(path)}?ref=${BRANCH}`, {allow404:true});
+      if(exist && exist.sha) sha = exist.sha;
+      await putFile(path, await readB64(file), `新增教案檔案：${name}`, sha);
+      assets.push({type, name, path});
+      log(`   ✓ 完成`, "d");
+    }
+
+    log("更新教案清單 lessons.json …");
+    const cur = await gh(`/contents/lessons.json?ref=${BRANCH}`, {allow404:true});
+    let data = {title:"高中物理教案庫", subtitle:"108課綱 · PBL議題融入 · 素養導向題組", lessons:[]};
+    if(cur && cur.content){ try{ data = JSON.parse(b64decode(cur.content)) }catch(e){} }
+    if(!Array.isArray(data.lessons)) data.lessons = [];
+
+    const entry = { id, title,
+      course: $("course").value, chapter: $("chapter").value,
+      topic: $("topic").value.trim(), note: $("note").value.trim(),
+      issues: [...picked], date, assets };
+    const k = data.lessons.findIndex(l => l.id === id);
+    k >= 0 ? data.lessons[k] = entry : data.lessons.push(entry);
+    data.lessons.sort((a,b) => String(b.date||"").localeCompare(String(a.date||"")));
+
+    await putFile("lessons.json", b64encode(JSON.stringify(data,null,2)),
+                  `更新教案清單：${title}`, cur && cur.sha);
+    log("   ✓ 完成", "d");
+
+    setStatus(st,"ok",`✓ <b>${esc(title)}</b> 已上傳（共 ${assets.length} 個檔案）。
+      約 30～60 秒後 <a href="./" style="color:inherit;font-weight:700">回儀表板</a> 就會看到。`);
+    FILES = []; renderFiles();
+    $("title").value = ""; $("topic").value = ""; $("note").value = "";
+    picked.clear(); $("issueChips").querySelectorAll(".ichip").forEach(e => e.classList.remove("on"));
+    loadManage();
+  }catch(e){
+    log("✗ " + e.message, "e");
+    setStatus(st,"err","上傳失敗：" + esc(e.message));
+  }finally{ btn.disabled = false }
+};
+
+/* ---------- 管理已上傳教案 ---------- */
+async function loadManage(){
+  const box = $("manageBox");
+  const {owner,repo} = repoParts();
+  if(!owner || !repo) return box.textContent = "請先完成步驟 1。";
+  try{
+    const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/lessons.json?v=${Date.now()}`,
+      { headers: $("token").value.trim() ? {Authorization:"Bearer "+$("token").value.trim()} : {} });
+    if(!r.ok) return box.textContent = "目前還沒有 lessons.json（上傳第一份教案後就會自動建立）。";
+    const j = await r.json();
+    const data = JSON.parse(b64decode(j.content));
+    const ls = data.lessons || [];
+    if(!ls.length) return box.textContent = "清單是空的。";
+    box.innerHTML = ls.map(l => `
+      <div class="mrow">
+        <span class="t">${esc(l.title)}<span style="color:var(--faint)"> · ${esc(l.course)} ${esc(l.chapter)}</span></span>
+        <span class="d">${esc(l.date||"")}</span>
+        <button class="btn sm danger" data-del="${esc(l.id)}">刪除</button>
+      </div>`).join("");
+    box.querySelectorAll("[data-del]").forEach(b => b.onclick = () => confirmDelete(b, b.dataset.del));
+  }catch(e){ box.textContent = "讀取失敗：" + e.message }
+}
+function confirmDelete(btn, id){
+  if(btn.dataset.armed){ doDelete(id); return }
+  btn.dataset.armed = "1"; btn.textContent = "再按一次確認";
+  setTimeout(() => { if(btn.isConnected){ delete btn.dataset.armed; btn.textContent = "刪除" } }, 4000);
+}
+async function doDelete(id){
+  const st = $("upStatus"); $("log").innerHTML = "";
+  if(!$("token").value.trim()) return setStatus(st,"err","請先貼上 Token 才能刪除。");
+  setStatus(st,"info","刪除中…");
+  try{
+    const info = await gh(""); BRANCH = info.default_branch || "main";
+    const tree = await gh(`/git/trees/${BRANCH}?recursive=1`);
+    const targets = (tree.tree||[]).filter(n => n.type==="blob" && n.path.startsWith(`lessons/${id}/`));
+    for(const t of targets){
+      log(`刪除 ${t.path} …`);
+      await gh(`/contents/${encPath(t.path)}`, {method:"DELETE",
+        body: JSON.stringify({message:`刪除教案檔案：${t.path}`, sha:t.sha, branch:BRANCH})});
+      log("   ✓", "d");
+    }
+    const cur = await gh(`/contents/lessons.json?ref=${BRANCH}`, {allow404:true});
+    if(cur){
+      const data = JSON.parse(b64decode(cur.content));
+      data.lessons = (data.lessons||[]).filter(l => l.id !== id);
+      await putFile("lessons.json", b64encode(JSON.stringify(data,null,2)), `移除教案：${id}`, cur.sha);
+    }
+    setStatus(st,"ok","✓ 已刪除。");
+    loadManage();
+  }catch(e){ setStatus(st,"err","刪除失敗：" + esc(e.message)) }
+}
+
+if($("repo").value && $("token").value) loadManage();
+</script>
+</body>
+</html>
